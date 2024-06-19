@@ -1,5 +1,5 @@
 # Numerical Simulation Laboratory (NSL)
-## _Alberto Lazzeri_
+### _Alberto Lazzeri_
 
 These are NSL exercises during A.A.2023-2024 edition. The `c++` code is used for the simulations, whereas the data analysis is in a `jupyter-notebook`.
 
