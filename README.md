@@ -12,12 +12,12 @@ Some extra libraries are required depending on the exercise:
 - From Lecture 4 [`armadillo`](https://arma.sourceforge.net/) libraries are required to build the simulations.
 - From Lecture 4 [`ovito`](https://www.ovito.org/) `python` package is needed for data visualization.
 
-To build the code using `makefile` run this code for each specific exercise:
+To create the executable using `makefile` use for each specific exercise:
 
 ```shell
 make es_x_x.exe
 ```
-Then to run the code use:
+Then to run the simulation use:
 
 ```shell
 ./es_x_x.exe
