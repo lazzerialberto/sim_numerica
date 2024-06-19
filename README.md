@@ -1,6 +1,4 @@
-# Numerical Simulation Laboratory (NSL)
-
-*** Alberto Lazzeri ***
+# Numerical Simulation Laboratory (NSL) *** Alberto Lazzeri ***
 
 These are NSL exercises during A.A.2023-2024 edition. The `c++` code is used for the simulations, whereas the data analysis is in a `jupyter-notebook`.
 
@@ -10,5 +8,5 @@ Each folder contains a `makefile`, a `c++` main for each sub-exercise (e.g. es_2
 ## Run code
 To run simulation code a GCC compiler is needed. STL is sufficient to build and run the simulation code. For data analysis check the dependences above each "Consegna" in the `jupyter-notebook`.
 Some extra libraries are required depending on the exercise:
-- [] From Lecture 4 [`armadillo`](https://arma.sourceforge.net/) libraries are required to build the simulations.
-- [] From Lecture 4 [`ovito`](https://www.ovito.org/) `python` package is needed for data visualization.
+- From Lecture 4 [`armadillo`](https://arma.sourceforge.net/) libraries are required to build the simulations.
+- From Lecture 4 [`ovito`](https://www.ovito.org/) `python` package is needed for data visualization.
