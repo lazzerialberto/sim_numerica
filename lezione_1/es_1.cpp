@@ -15,8 +15,8 @@ double error(double AV, double AV2, int n) {
 }
 
 int main() {
-    const int N = 100;    // Numero di blocchi
-    const int M = 10000;   // Iterazioni per ogni blocco
+    const int N = 100;    // Number of  blocks
+    const int M = 10000;   // Numer of iterations per block
     double av=0;
     double av_2=0;
     double sum2=0;
@@ -29,8 +29,10 @@ int main() {
     Random rnd;
     rnd.Initialize();
 
+    //output files
     ofstream fileout("risultati_1.csv");
     ofstream fileout2("risultati_1_2.csv");
+
     fileout<<"sum_prog,sum2_prog,err_prog"<<endl;
     fileout2<<"sum_prog,sum2_prog,err_prog"<<endl;
 
@@ -52,7 +54,7 @@ int main() {
             sum_copy_2+=av_2;
             sum2_2+=pow(av_2,2);
 
-            //Carico sui files
+            //Loading up files
             fileout<<sum_copy/i*100<<","<<sum2/i*10<<","<<error(sum_copy/i*100,sum2/i*10,count)<<endl;
             fileout2<<sum_copy_2/i*100<<","<<sum2_2/i*10<<","<<error(sum_copy_2/i*100,sum2_2/i*10,count)<<endl;
 
@@ -66,13 +68,15 @@ int main() {
     fileout.close();
     fileout2.close();
 
+    //Loading chi squared
+
     for(int i=0;i<10000000; i++){
         appo2.push_back(rnd.Rannyu());
     }
     std::cout << appo2[0] << " " << appo2.size() << endl;
 
 
-    //calcolo chi2 per distribuzione uniforme
+    //chi2 for uniform distribution
     ofstream fileout3("risultati_1_4.csv");
     fileout3<<"chi2"<<endl;
 

@@ -33,6 +33,7 @@ void Random :: SaveSeed(){
   return;
 }
 
+//Initializing Random generator
 void Random :: Initialize(){
    int seed[4];
    int p1, p2;

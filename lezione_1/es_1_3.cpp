@@ -10,11 +10,13 @@ using namespace std;
 int main(){
 
     int M=20000;
-    double L = 1.3;
-    double d = 2.0;
+    double L = 1.3; //needle lenght
+    double d = 2.0; //distance between lines
+
     int N_hit=0;
     int N_tot=0;
     double pi,pi2,err;
+
     Random rnd;
     rnd.Initialize();
 
@@ -29,10 +31,11 @@ int main(){
         while(N_tot<M){
 
             double appo,appo1,appo2,theta,pos;
-            appo=rnd.Rannyu()*d;
-            appo1=rnd.Rannyu(-1,1);
-            appo2=rnd.Rannyu();
+            appo=rnd.Rannyu()*d; //random number between 0 and d
+            appo1=rnd.Rannyu(-1,1); //random number between -1 and 1
+            appo2=rnd.Rannyu(); //Random number between 0 and 1
 
+            //sorting angles from 0 to 180° in order to the simmetry of the problem
             if(sqrt(pow(appo1,2)+pow(appo2,2))<=1){
                 theta=appo1/sqrt(pow(appo1,2)+pow(appo2,2));
 

@@ -15,13 +15,13 @@ int main(){
     Random rnd;
     rnd.Initialize();
 
-
+    //Loading Random Numbers
     for(int i=0;i<10000000;i++){
         appo2.push_back(rnd.Rannyu());
     }
 
 
-    //carico i dati sul file estratti dalle tre distribuzioni per ogni N
+    //Loading data on files for each N for each distribution
     ofstream fileout("risultati_2_1.csv");
     fileout<<"1-unif,1-expo,1-lor,2-unif,2-expo,2-lor,10-unif,10-expo,10-lor,100-unif,100-expo,100-lor"<<endl;
 
