@@ -22,4 +22,10 @@ Then to run the simulation use:
 ```shell
 ./es_x_x.exe
 ```
+
+To remove object files and executable use:
+
+```shell
+make clean
+```
 Other extra will be indicated below.
