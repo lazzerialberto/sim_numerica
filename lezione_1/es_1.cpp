@@ -73,7 +73,6 @@ int main() {
     for(int i=0;i<10000000; i++){
         appo2.push_back(rnd.Rannyu());
     }
-    std::cout << appo2[0] << " " << appo2.size() << endl;
 
 
     //chi2 for uniform distribution
@@ -92,8 +91,6 @@ int main() {
                     n_j++;
                 }
             }
-
-            std::cout << n_j << " " << static_cast<double>(l)/N << endl;
             chi2+=pow((n_j-M/N),2)/(M/N);
             n_j=0;
         }

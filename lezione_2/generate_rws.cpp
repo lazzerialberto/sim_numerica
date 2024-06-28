@@ -59,7 +59,6 @@ int main(){
 
             else{
                 cout << "not doing anything, any problem?" << endl;
-                cout << appo1 << " , "<< static_cast<int>(appo*3) << endl;
                 count ++;
             }
 

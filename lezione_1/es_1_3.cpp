@@ -39,7 +39,7 @@ int main(){
             if(sqrt(pow(appo1,2)+pow(appo2,2))<=1){
                 theta=appo1/sqrt(pow(appo1,2)+pow(appo2,2));
 
-                //Genero un angolo e la posizione di un estremo tra 0 e d, poi per capire se ha sorpassato utilizzo la proiezione sull'asse x.
+                //sorting position of an end between 0 and d and an angle the I use projection on x-axes to know if the bar passed
 
                 pos=appo+L*theta;
 
@@ -52,10 +52,7 @@ int main(){
 
         }
 
-        if(j==0 or j==1){
-            cout << N_hit << "   " << N_tot << "  " << (2*L*N_tot/(N_hit*d)) << endl;
-        }
-
+        //blocking average
         pi+=(2*L*N_tot/(N_hit*d));
         pi2+=pow((2*L*N_tot/(N_hit*d)),2);
         err=sqrt((pi2/(j+1)-pow(pi/(j+1),2))/(j+1));
