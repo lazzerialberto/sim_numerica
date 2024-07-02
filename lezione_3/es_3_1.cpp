@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <fstream>
+#include <iomanip>
 
 #include "random.h"
 #include "motions.h"
@@ -29,6 +30,23 @@ class erf_func: public FunzioneBase{
    }
 
 };
+
+
+void Progress_Bar(int progress, int total, int bar_width=50) {
+
+    float percentage = static_cast<float>(progress) / total;
+    int pos = static_cast<int>(bar_width * percentage);
+
+    std::string bar;
+    for (int i = 0; i < bar_width; ++i) {
+        if (i < pos) bar += "=";
+        else if(i==pos) bar += ">";
+        else bar += " ";
+    }
+
+    std::cout<< "|" << bar << "| " << setprecision(3) << int(percentage * 100.0)<< "%\r";
+    std::fflush(stdout);
+}
 
 
 int main(){
@@ -126,8 +144,12 @@ int main(){
             count++;
         }
 
+        Progress_Bar(i,N*M-1);
+
 
     }
+
+    cout << endl;
 
     fileout.close();
     fileout2.close();
