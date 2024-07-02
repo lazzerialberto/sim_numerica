@@ -9,8 +9,8 @@ Each folder matches a lecture and contains a `makefile`, a `c++` main for each s
 ## Run code
 To run simulation code a GCC compiler is needed. STL is sufficient to build and run the simulation code. For data analysis check the dependences above each "Consegna" in the `jupyter-notebook`.
 Some extra libraries are required depending on the exercise:
-- From Lecture 4 [`armadillo`](https://arma.sourceforge.net/) libraries are required to build the simulations.
-- From Lecture 4 [`ovito`](https://www.ovito.org/) `python` package is needed for data visualization.
+- For Lecture 4 [`armadillo`](https://arma.sourceforge.net/) libraries are required to build the simulations.
+- For Lecture 4 [`ovito`](https://www.ovito.org/) `python` package is needed for data visualization.
 
 To create the executable using `makefile` use for each specific exercise:
 
