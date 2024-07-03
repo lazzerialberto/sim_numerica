@@ -13,8 +13,6 @@ _/    _/  _/_/_/  _/_/_/_/ email: Davide.Galli@unimi.it
 #include <string>
 #include "system.h"
 
-//il bro è un genio
-
 using namespace std;
 using namespace arma;
 
