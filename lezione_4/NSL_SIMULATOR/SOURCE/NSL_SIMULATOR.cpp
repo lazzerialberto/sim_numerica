@@ -13,6 +13,22 @@ _/    _/  _/_/_/  _/_/_/_/ email: Davide.Galli@unimi.it
 
 using namespace std;
 
+void Progress_Bar(int progress, int total, int bar_width=50) {
+
+    float percentage = static_cast<float>(progress) / total;
+    int pos = static_cast<int>(bar_width * percentage);
+
+    std::string bar;
+    for (int i = 0; i < bar_width; ++i) {
+        if (i < pos) bar += "=";
+        else if(i==pos) bar += ">";
+        else bar += " ";
+    }
+
+    std::cout<< "|" << bar << "| " << setprecision(3) << int(percentage * 100.0)<< "%\r";
+    std::fflush(stdout);
+}
+
 int main (int argc, char *argv[]){
 
   int nconf = 1;
@@ -32,6 +48,10 @@ int main (int argc, char *argv[]){
     }
     SYS.averages(i+1);
     SYS.block_reset(i+1);
+
+    //adding progress bar
+    Progress_Bar(i,SYS.get_nbl());
+
   }
   SYS.finalize();
 
