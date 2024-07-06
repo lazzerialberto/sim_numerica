@@ -45,6 +45,8 @@ private:
   field <Particle> _particle; // Field of particle objects representing the system
   vec _fx, _fy, _fz;    // Forces on particles along x, y, and z directions
 
+  double temp_init; //initial temperature value
+
   // Properties
   int _nprop; // Number of properties being measured
   bool _measure_penergy, _measure_kenergy, _measure_tenergy;// Flags for measuring different energies
@@ -85,6 +87,15 @@ public: // Function declarations
   void Verlet();              // Perform Verlet integration step
   double Force(int i, int dim); // Calculate force on a particle along a dimension
   double Boltzmann(int i, bool xnew); // Calculate Boltzmann factor for Metropolis acceptance
+
+  double get_init_temp(); //returns the initial temperature value
+  double get_fin_temp(); //returns the final temperature value
+  double get_rho(); //returns density of the system
+  double get_r_cut(); //returns cutoff radius for pair interactions
+
+  void print_parameters();
+
+  void initialize_for_equilibration(double temp,double r_cut, double rho);
 
 };
 

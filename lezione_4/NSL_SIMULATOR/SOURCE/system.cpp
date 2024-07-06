@@ -142,6 +142,7 @@ void System :: initialize(){ // Initialize the System object according to the co
   couta << "#   N_BLOCK:  ACCEPTANCE:" << endl;
   couta.close();
 
+
   ifstream input("../INPUT/input.dat"); // Start reading ../INPUT/input.dat
   ofstream coutf;
   coutf.open("../OUTPUT/output.dat");
@@ -167,6 +168,9 @@ void System :: initialize(){ // Initialize the System object according to the co
       input >> _restart;
     } else if( property == "TEMP" ){
       input >> _temp;
+
+      temp_init = _temp; //saving real initial temperature
+
       _beta = 1.0/_temp;
       coutf << "TEMPERATURE= " << _temp << endl;
     } else if( property == "NPART" ){
@@ -666,6 +670,133 @@ int System :: get_nbl(){
 int System :: get_nsteps(){
   return _nsteps;
 }
+
+double System :: get_init_temp(){
+  return temp_init;
+}
+
+double System :: get_fin_temp(){
+  return _temp;
+}
+
+double System :: get_rho(){
+  return _rho;
+}
+
+double System :: get_r_cut(){
+  return _r_cut;
+}
+
+void System :: print_parameters(){
+
+  ofstream fileout;
+  fileout.open("../OUTPUT/parameters.dat",ios::app);
+
+  fileout << this->get_r_cut() << "\t\t\t\t" << this->get_rho() << "\t\t\t\t" << this->get_fin_temp() << "\t\t\t\t" << this->get_init_temp() << endl;
+
+  fileout.close();
+}
+
+
+void System :: initialize_for_equilibration(double temp,double r_cut,double rho){ // Initialize the System object according to the content of the input files in the ../INPUT/ directory
+
+  int p1, p2; // Read from ../INPUT/Primes a pair of numbers to be used to initialize the RNG
+  ifstream Primes("../INPUT/Primes");
+  Primes >> p1 >> p2 ;
+  Primes.close();
+  int seed[4]; // Read the seed of the RNG
+  ifstream Seed("../INPUT/seed.in");
+  Seed >> seed[0] >> seed[1] >> seed[2] >> seed[3];
+  _rnd.SetRandom(seed,p1,p2);
+
+  ofstream couta("../OUTPUT/acceptance.dat"); // Set the heading line in file ../OUTPUT/acceptance.dat
+  couta << "#   N_BLOCK:  ACCEPTANCE:" << endl;
+  couta.close();
+
+
+  ifstream input("../INPUT/input.dat"); // Start reading ../INPUT/input.dat
+  ofstream coutf;
+  coutf.open("../OUTPUT/output.dat");
+  string property;
+  double delta;
+  while ( !input.eof() ){
+    input >> property;
+    if( property == "SIMULATION_TYPE" ){
+      input >> _sim_type;
+      if(_sim_type > 1){
+        input >> _J;
+        input >> _H;
+      }
+      if(_sim_type > 3){
+        cerr << "PROBLEM: unknown simulation type" << endl;
+        exit(EXIT_FAILURE);
+      }
+      if(_sim_type == 0)      coutf << "LJ MOLECULAR DYNAMICS (NVE) SIMULATION"  << endl;
+      else if(_sim_type == 1) coutf << "LJ MONTE CARLO (NVT) SIMULATION"         << endl;
+      else if(_sim_type == 2) coutf << "ISING 1D MONTE CARLO (MRT^2) SIMULATION" << endl;
+      else if(_sim_type == 3) coutf << "ISING 1D MONTE CARLO (GIBBS) SIMULATION" << endl;
+    } else if( property == "RESTART" ){
+      input >> _restart;
+    } else if( property == "TEMP" ){
+      input >> _temp;
+      _temp=temp;
+
+      temp_init = _temp; //saving real initial temperature
+
+      _beta = 1.0/_temp;
+      coutf << "TEMPERATURE= " << _temp << endl;
+    } else if( property == "NPART" ){
+      input >> _npart;
+      _fx.resize(_npart);
+      _fy.resize(_npart);
+      _fz.resize(_npart);
+      _particle.set_size(_npart);
+      for(int i=0; i<_npart; i++){ 
+        _particle(i).initialize();
+        if(_rnd.Rannyu() > 0.5) _particle(i).flip(); // to randomize the spin configuration
+      }
+      coutf << "NPART= " << _npart << endl;
+    } else if( property == "RHO" ){
+      input >> _rho;
+      _rho=rho;
+      _volume = _npart/_rho;
+      _side.resize(_ndim);
+      _halfside.resize(_ndim);
+      double side = pow(_volume, 1.0/3.0);
+      for(int i=0; i<_ndim; i++) _side(i) = side;
+      _halfside=0.5*_side;
+      coutf << "SIDE= ";
+      for(int i=0; i<_ndim; i++){
+        coutf << setw(12) << _side[i];
+      }
+      coutf << endl;
+    } else if( property == "R_CUT" ){
+      input >> _r_cut;
+      _r_cut=r_cut;
+      coutf << "R_CUT= " << _r_cut << endl;
+    } else if( property == "DELTA" ){
+      input >> delta;
+      coutf << "DELTA= " << delta << endl;
+      _delta = delta;
+    } else if( property == "NBLOCKS" ){
+      input >> _nblocks;
+      coutf << "NBLOCKS= " << _nblocks << endl;
+    } else if( property == "NSTEPS" ){
+      input >> _nsteps;
+      coutf << "NSTEPS= " << _nsteps << endl;
+    } else if( property == "ENDINPUT" ){
+      coutf << "Reading input completed!" << endl;
+      break;
+    } else cerr << "PROBLEM: unknown input" << endl;
+  }
+  input.close();
+  this->read_configuration();
+  this->initialize_velocities();
+  coutf << "System initialized!" << endl;
+  coutf.close();
+  return;
+}
+
 
 /****************************************************************
 *****************************************************************
