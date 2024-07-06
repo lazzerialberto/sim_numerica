@@ -636,6 +636,7 @@ void System :: averages(int blk){
           << setw(12) << sum_average/double(blk)
           << setw(12) << this->error(sum_average, sum_ave2, blk) << endl;
     coutf.close();
+    temp_final=sum_average/double(blk);
   }
   // PRESSURE //////////////////////////////////////////////////////////////////
   // TO BE FIXED IN EXERCISE 4
@@ -676,7 +677,7 @@ double System :: get_init_temp(){
 }
 
 double System :: get_fin_temp(){
-  return _temp;
+  return temp_final;
 }
 
 double System :: get_rho(){
@@ -687,12 +688,12 @@ double System :: get_r_cut(){
   return _r_cut;
 }
 
-void System :: print_parameters(){
+void System :: print_parameters(double temp_in){
 
   ofstream fileout;
   fileout.open("../OUTPUT/parameters.dat",ios::app);
 
-  fileout << this->get_r_cut() << "\t\t\t\t" << this->get_rho() << "\t\t\t\t" << this->get_fin_temp() << "\t\t\t\t" << this->get_init_temp() << endl;
+  fileout << this->get_r_cut() << "\t\t\t\t" << this->get_rho() << "\t\t\t\t" << this->get_fin_temp() << "\t\t\t\t" << temp_in << endl;
 
   fileout.close();
 }

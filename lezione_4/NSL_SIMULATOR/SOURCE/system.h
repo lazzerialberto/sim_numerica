@@ -46,6 +46,7 @@ private:
   vec _fx, _fy, _fz;    // Forces on particles along x, y, and z directions
 
   double temp_init; //initial temperature value
+  double temp_final; //final temperature value
 
   // Properties
   int _nprop; // Number of properties being measured
@@ -93,7 +94,7 @@ public: // Function declarations
   double get_rho(); //returns density of the system
   double get_r_cut(); //returns cutoff radius for pair interactions
 
-  void print_parameters();
+  void print_parameters(double temp_in);
 
   void initialize_for_equilibration(double temp,double r_cut, double rho);
 

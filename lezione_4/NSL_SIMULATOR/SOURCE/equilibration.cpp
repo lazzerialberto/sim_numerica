@@ -51,13 +51,13 @@ int main (int argc, char *argv[]){
           SYS.block_reset(i+1);
         }
 
-        SYS.print_parameters();
+        SYS.print_parameters(temp[l]);
         SYS.finalize();
-        //adding progress bar
-        Progress_Bar(l,temp.size());
       
       }
     }
+    //adding progress bar
+    Progress_Bar(l,temp.size());
   }
   cout << endl;
 
