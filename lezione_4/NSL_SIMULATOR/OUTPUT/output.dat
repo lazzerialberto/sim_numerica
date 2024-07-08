@@ -1,8 +1,8 @@
 LJ MOLECULAR DYNAMICS (NVE) SIMULATION
-TEMPERATURE= 0.6
+TEMPERATURE= 0.9
 NPART= 108
 SIDE=      5.36342     5.36342     5.36342
-R_CUT= 2
+R_CUT= 2.7
 DELTA= 0.0005
 NBLOCKS= 50
 NSTEPS= 1000
@@ -34,3 +34,25 @@ Block completed: 22
 Block completed: 23
 Block completed: 24
 Block completed: 25
+Block completed: 26
+Block completed: 27
+Block completed: 28
+Block completed: 29
+Block completed: 30
+Block completed: 31
+Block completed: 32
+Block completed: 33
+Block completed: 34
+Block completed: 35
+Block completed: 36
+Block completed: 37
+Block completed: 38
+Block completed: 39
+Block completed: 40
+Block completed: 41
+Block completed: 42
+Block completed: 43
+Block completed: 44
+Block completed: 45
+Block completed: 46
+Block completed: 47
