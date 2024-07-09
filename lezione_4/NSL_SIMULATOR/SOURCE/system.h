@@ -97,6 +97,7 @@ public: // Function declarations
   void print_parameters(double temp_in);
 
   void initialize_for_equilibration(double temp,double r_cut, double rho); //initialize function for equilibration (used in equlibration.cpp)
+  void initialize_equilibrated(); //initialize system properties with equilibrated temperature
 
 };
 

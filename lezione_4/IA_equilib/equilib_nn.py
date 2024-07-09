@@ -120,7 +120,10 @@ for epoch in tqdm(range(n_epochs)):
 
     loss_train_epochs.append(cumulative_loss/len(train_set))
 
-    if epoch==90:
+    if epoch==10:
+        min_train_loss=cumulative_loss
+        torch.save(model.state_dict(),"./model_train.pt")
+    if min_train_loss>cumulative_loss:
         min_train_loss=cumulative_loss
         torch.save(model.state_dict(),"./model_train.pt")
 
@@ -142,7 +145,10 @@ for epoch in tqdm(range(n_epochs)):
     test_loss /= num_batches
     loss_val_epochs.append(test_loss.cpu().numpy())
 
-    if epoch==90:
+    if epoch==10:
+        min_val_loss=cumulative_val_loss
+        torch.save(model.state_dict(),"./model_val.pt")
+    if min_val_loss>cumulative_val_loss:
         min_val_loss=cumulative_val_loss
         torch.save(model.state_dict(),"./model_val.pt")
 

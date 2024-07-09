@@ -1,5 +1,5 @@
 Key,Min,Max
 r_cut,2.0,5.5
 rho,0.02,1.2
-temp_fin,0.303061,1.94647
-temp_init,0.6,1.6
+temp_fin,0.303061,2.323
+temp_init,0.6,2.0
