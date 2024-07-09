@@ -13,12 +13,14 @@ class NeuralNetwork(nn.Module):
     def __init__(self):
         super(NeuralNetwork, self).__init__()
         self.linear_elu_stack = nn.Sequential(
-            nn.Linear(3,50,True),
-            nn.ReLU(),
-            nn.Linear(50,50,True),
-            nn.ReLU(),
+            nn.Linear(3,100,True),
+            nn.ELU(),
+            nn.Linear(100,100,True),
+            nn.ELU(),
+            nn.Linear(100,50,True),
+            nn.ELU(),
             nn.Linear(50,20,True),
-            nn.ReLU(),
+            nn.ELU(),
             nn.Linear(20,1,True)
         )
 
@@ -120,12 +122,12 @@ for epoch in tqdm(range(n_epochs)):
 
     loss_train_epochs.append(cumulative_loss/len(train_set))
 
-    if epoch==10:
+    if epoch==90:
         min_train_loss=cumulative_loss
         torch.save(model.state_dict(),"IA_equilib/model_train.pt")
-    if min_train_loss>cumulative_loss:
+    '''if min_train_loss>cumulative_loss:
         min_train_loss=cumulative_loss
-        torch.save(model.state_dict(),"IA_equilib/model_train.pt")
+        torch.save(model.state_dict(),"IA_equilib/model_train.pt")'''
 
 
     cumulative_val_loss=0
@@ -145,12 +147,12 @@ for epoch in tqdm(range(n_epochs)):
     test_loss /= num_batches
     loss_val_epochs.append(test_loss.cpu().numpy())
 
-    if epoch==10:
+    if epoch==90:
         min_val_loss=cumulative_val_loss
         torch.save(model.state_dict(),"IA_equilib/model_val.pt")
-    if min_val_loss>cumulative_val_loss:
+    '''if min_val_loss>cumulative_val_loss:
         min_val_loss=cumulative_val_loss
-        torch.save(model.state_dict(),"IA_equilib/model_val.pt")
+        torch.save(model.state_dict(),"IA_equilib/model_val.pt")'''
 
     scheduler.step(cumulative_val_loss)
 

@@ -10,12 +10,14 @@ class NeuralNetwork(nn.Module):
     def __init__(self):
         super(NeuralNetwork, self).__init__()
         self.linear_elu_stack = nn.Sequential(
-            nn.Linear(3,50,True),
-            nn.ReLU(),
-            nn.Linear(50,50,True),
-            nn.ReLU(),
+            nn.Linear(3,100,True),
+            nn.ELU(),
+            nn.Linear(100,100,True),
+            nn.ELU(),
+            nn.Linear(100,50,True),
+            nn.ELU(),
             nn.Linear(50,20,True),
-            nn.ReLU(),
+            nn.ELU(),
             nn.Linear(20,1,True)
         )
 
@@ -46,7 +48,5 @@ def Find_initial_temperature(r_cut,rho,fin_temp):
 
     return round(float(y.cpu().numpy())*(norms['Max']['temp_init']-norms['Min']['temp_init'])+norms['Min']['temp_init'],4)
 
-
-
-
+print(Find_initial_temperature(2.2,0.05,0.814))
 
