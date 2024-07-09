@@ -4,8 +4,25 @@ from torch import nn
 from torch.utils.data import TensorDataset, DataLoader
 from tqdm import tqdm
 import os
-from equilib_nn import NeuralNetwork
 import pandas as pd
+
+# Neural Network definition
+class NeuralNetwork(nn.Module):
+    def __init__(self):
+        super(NeuralNetwork, self).__init__()
+        self.linear_elu_stack = nn.Sequential(
+            nn.Linear(3,50,True),
+            nn.ReLU(),
+            nn.Linear(50,50,True),
+            nn.ReLU(),
+            nn.Linear(50,20,True),
+            nn.ReLU(),
+            nn.Linear(20,1,True)
+        )
+
+    def forward(self, x):
+        output = self.linear_elu_stack(x)
+        return output
 
 #function to find the initial temperature
 def Find_initial_temperature(r_cut,rho,fin_temp):
@@ -28,7 +45,7 @@ def Find_initial_temperature(r_cut,rho,fin_temp):
     with torch.no_grad():
         y=model(data)
 
-    return y.cpu().numpy()
+    return round(float(y.cpu().numpy())*(norms['Max']['temp_init']-norms['Min']['temp_init'])+norms['Min']['temp_init'],4)
 
 
 print(Find_initial_temperature(2.0,1.2,0.3))

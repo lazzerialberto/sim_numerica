@@ -83,8 +83,6 @@ train_set = DataLoader(train_load, batch_size=1)
 
 val_load = TensorDataset(torch.column_stack((r_cut[len_train_set-1:n_samples],rho[len_train_set-1:n_samples],temp_fin[len_train_set-1:n_samples])),temp_init[len_train_set-1:n_samples]) # create your dataset
 val_set = DataLoader(val_load, batch_size=1)
-
-print("\n", data_dict,"\n",normalized_dict,"\n",len(normalized_dict["temp_fin"]),"\n")
     
 model = NeuralNetwork().to(device)
 print(model)
