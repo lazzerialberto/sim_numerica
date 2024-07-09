@@ -1,7 +1,6 @@
 import numpy as np
 import torch
 from torch import nn
-from torch.utils.data import TensorDataset, DataLoader
 from tqdm import tqdm
 import os
 import pandas as pd
@@ -48,7 +47,6 @@ def Find_initial_temperature(r_cut,rho,fin_temp):
     return round(float(y.cpu().numpy())*(norms['Max']['temp_init']-norms['Min']['temp_init'])+norms['Min']['temp_init'],4)
 
 
-print(Find_initial_temperature(2.0,1.2,0.3))
 
 
 
