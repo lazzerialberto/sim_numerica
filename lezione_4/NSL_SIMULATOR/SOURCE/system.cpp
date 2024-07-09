@@ -13,9 +13,6 @@ _/    _/  _/_/_/  _/_/_/_/ email: Davide.Galli@unimi.it
 #include <string>
 #include "system.h"
 
-#define PY_SSIZE_T_CLEAN
-#include <Python.h>
-
 using namespace std;
 using namespace arma;
 
@@ -798,107 +795,6 @@ void System :: initialize_for_equilibration(double temp,double r_cut,double rho)
   this->initialize_velocities();
   coutf << "System initialized!" << endl;
   coutf.close();
-  return;
-}
-
-
-void System :: initialize_equilibrated(){ // Initialize the System object according to the content of the input files in the ../INPUT/ directory
-
-  int p1, p2; // Read from ../INPUT/Primes a pair of numbers to be used to initialize the RNG
-  ifstream Primes("../INPUT/Primes");
-  Primes >> p1 >> p2 ;
-  Primes.close();
-  int seed[4]; // Read the seed of the RNG
-  ifstream Seed("../INPUT/seed.in");
-  Seed >> seed[0] >> seed[1] >> seed[2] >> seed[3];
-  _rnd.SetRandom(seed,p1,p2);
-
-  ofstream couta("../OUTPUT/acceptance.dat"); // Set the heading line in file ../OUTPUT/acceptance.dat
-  couta << "#   N_BLOCK:  ACCEPTANCE:" << endl;
-  couta.close();
-
-  Py_Initialize(); //opening python functionalities
-
-  ifstream input("../INPUT/input.dat"); // Start reading ../INPUT/input.dat
-  ofstream coutf;
-  coutf.open("../OUTPUT/output.dat");
-  string property;
-  double delta;
-  while ( !input.eof() ){
-    input >> property;
-    if( property == "SIMULATION_TYPE" ){
-      input >> _sim_type;
-      if(_sim_type > 1){
-        input >> _J;
-        input >> _H;
-      }
-      if(_sim_type > 3){
-        cerr << "PROBLEM: unknown simulation type" << endl;
-        exit(EXIT_FAILURE);
-      }
-      if(_sim_type == 0)      coutf << "LJ MOLECULAR DYNAMICS (NVE) SIMULATION"  << endl;
-      else if(_sim_type == 1) coutf << "LJ MONTE CARLO (NVT) SIMULATION"         << endl;
-      else if(_sim_type == 2) coutf << "ISING 1D MONTE CARLO (MRT^2) SIMULATION" << endl;
-      else if(_sim_type == 3) coutf << "ISING 1D MONTE CARLO (GIBBS) SIMULATION" << endl;
-    } else if( property == "RESTART" ){
-      input >> _restart;
-    } else if( property == "TEMP" ){
-      input >> _temp;
-
-      temp_init = _temp; //saving real initial temperature
-
-      _beta = 1.0/_temp;
-      coutf << "TEMPERATURE= " << _temp << endl;
-    } else if( property == "NPART" ){
-      input >> _npart;
-      _fx.resize(_npart);
-      _fy.resize(_npart);
-      _fz.resize(_npart);
-      _particle.set_size(_npart);
-      for(int i=0; i<_npart; i++){ 
-        _particle(i).initialize();
-        if(_rnd.Rannyu() > 0.5) _particle(i).flip(); // to randomize the spin configuration
-      }
-      coutf << "NPART= " << _npart << endl;
-    } else if( property == "RHO" ){
-      input >> _rho;
-      _volume = _npart/_rho;
-      _side.resize(_ndim);
-      _halfside.resize(_ndim);
-      double side = pow(_volume, 1.0/3.0);
-      for(int i=0; i<_ndim; i++) _side(i) = side;
-      _halfside=0.5*_side;
-      coutf << "SIDE= ";
-      for(int i=0; i<_ndim; i++){
-        coutf << setw(12) << _side[i];
-      }
-      coutf << endl;
-    } else if( property == "R_CUT" ){
-      input >> _r_cut;
-      coutf << "R_CUT= " << _r_cut << endl;
-    } else if( property == "DELTA" ){
-      input >> delta;
-      coutf << "DELTA= " << delta << endl;
-      _delta = delta;
-    } else if( property == "NBLOCKS" ){
-      input >> _nblocks;
-      coutf << "NBLOCKS= " << _nblocks << endl;
-    } else if( property == "NSTEPS" ){
-      input >> _nsteps;
-      coutf << "NSTEPS= " << _nsteps << endl;
-    } else if( property == "ENDINPUT" ){
-      coutf << "Reading input completed!" << endl;
-      break;
-    } else cerr << "PROBLEM: unknown input" << endl;
-  }
-  input.close();
-  this->read_configuration();
-  this->initialize_velocities();
-  coutf << "System initialized!" << endl;
-  coutf.close();
-
-  Py_Finalize(); //closing python functionalities
-
   return;
 }
 

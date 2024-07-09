@@ -26,11 +26,11 @@ int main (int argc, char *argv[]){
 
   //fileout << "CUTOFF RAD:     DENSITY:     FINAL TEMP:     INITIAL TEMP:" << endl;
 
-  vector<double> temp={0.6,0.9,1.1,1.6,2.0,2.2}; //riprendo da temp=1.6
+  vector<double> temp={0.6,0.9,1.1,1.6,2.0,2.2}; //riprendo da temp=2.0
   vector<double> r_cut={2.0,2.2,2.5,2.7,4.5,5.0,5.5};
   vector<double> rho={0.02,0.05,0.1,0.7,0.8,0.9,1.0,1.1,1.2};
 
-  for(int l=3;l<temp.size(); l++){
+  for(int l=4;l<temp.size(); l++){
 
     for(int m=0;m<r_cut.size(); m++){
 
