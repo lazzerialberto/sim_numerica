@@ -14,13 +14,15 @@ class NeuralNetwork(nn.Module):
         super(NeuralNetwork, self).__init__()
         self.linear_elu_stack = nn.Sequential(
             nn.Linear(3,100,True),
-            nn.ELU(),
-            nn.Linear(100,100,True),
-            nn.ELU(),
-            nn.Linear(100,50,True),
-            nn.ELU(),
-            nn.Linear(50,20,True),
-            nn.ELU(),
+            nn.ReLU(),
+            nn.Linear(100,200,True),
+            nn.ReLU(),
+            nn.Linear(200,200,True),
+            nn.ReLU(),
+            nn.Linear(200,100,True),
+            nn.ReLU(),
+            nn.Linear(100,20,True),
+            nn.ReLU(),
             nn.Linear(20,1,True)
         )
 

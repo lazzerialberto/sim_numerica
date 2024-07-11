@@ -7,8 +7,6 @@ R_CUT                  2.5
 DELTA                  0.0005
 NBLOCKS                50
 NSTEPS                 1000
-INIT_TEMP			   1.6278
-INIT_TEMP			   1.5382
-INIT_TEMP			   1.3768
+INIT_TEMP			   1.8425
 
 ENDINPUT
