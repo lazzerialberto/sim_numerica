@@ -28,4 +28,13 @@ To remove object files and executable use:
 ```shell
 make clean
 ```
+
+### Lecture 4
+
+Before running the code, equilibration is needed. With `python3` run:
+```shell
+python equilib.py
+```
+This will add a line in the input file which reports the temperature which start the simulation at to reach the real input temperature at equilibrium.
+
 Other extra will be indicated below.
