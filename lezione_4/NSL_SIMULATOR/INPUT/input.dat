@@ -5,8 +5,8 @@ NPART                  108
 RHO                    0.8
 R_CUT                  2.5
 DELTA                  0.0005
-NBLOCKS                50
+NBLOCKS                100
 NSTEPS                 1000
-INIT_TEMP			   1.8425
+INIT_TEMP			   1.8502
 
 ENDINPUT

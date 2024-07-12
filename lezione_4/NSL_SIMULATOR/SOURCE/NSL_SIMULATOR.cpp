@@ -33,7 +33,7 @@ int main (int argc, char *argv[]){
 
   int nconf = 1;
   System SYS;
-  SYS.initialize();
+  SYS.initialize_equilibrated();
   SYS.initialize_properties();
   SYS.block_reset(0);
 
@@ -54,6 +54,7 @@ int main (int argc, char *argv[]){
 
   }
   SYS.finalize();
+  cout << endl;
 
   return 0;
 }
