@@ -521,6 +521,7 @@ void System :: measure(){ // Measure properties
   distance.resize(_ndim);
   double penergy_temp=0.0, dr; // temporary accumulator for potential energy
   double kenergy_temp=0.0; // temporary accumulator for kinetic energy
+  double pressure_temp=0.0; // temporary accumulator for pressure
   double tenergy_temp=0.0;
   double magnetization=0.0;
   double virial=0.0;
@@ -534,9 +535,9 @@ void System :: measure(){ // Measure properties
         // GOFR ... TO BE FIXED IN EXERCISE 7
         if(dr < _r_cut){
           if(_measure_penergy)  penergy_temp += 1.0/pow(dr,12) - 1.0/pow(dr,6); // POTENTIAL ENERGY
-          // PRESSURE ... TO BE FIXED IN EXERCISE 4 
+          if(_measure_pressure) pressure_temp+= (1./pow(dr,12)-0.5/pow(dr,6)); // PRESSURE 
         }
-      }
+      } 
     }
   }
   // POTENTIAL ENERGY //////////////////////////////////////////////////////////
@@ -567,7 +568,10 @@ void System :: measure(){ // Measure properties
   // TEMPERATURE ///////////////////////////////////////////////////////////////
   if (_measure_temp and _measure_kenergy) _measurement(_index_temp) = (2.0/3.0) * kenergy_temp;
   // PRESSURE //////////////////////////////////////////////////////////////////
-// TO BE FIXED IN EXERCISE 4
+  if(_measure_pressure and _measure_temp) {
+    pressure_temp=48.*pressure_temp/double(_npart)+_vtail;
+  _measurement(_index_pressure) = _rho*_temp+1./(3*_volume)*pressure_temp; // TO BE FIXED IN EXERCISE 4
+  }
   // MAGNETIZATION /////////////////////////////////////////////////////////////
 // TO BE FIXED IN EXERCISE 6
   // SPECIFIC HEAT /////////////////////////////////////////////////////////////
@@ -639,7 +643,17 @@ void System :: averages(int blk){
     temp_final=sum_average/double(blk);
   }
   // PRESSURE //////////////////////////////////////////////////////////////////
-  // TO BE FIXED IN EXERCISE 4
+  if (_measure_pressure){
+    coutf.open("../OUTPUT/pressure.dat",ios::app);
+    average  = _average(_index_pressure);
+    sum_average = _global_av(_index_pressure);
+    sum_ave2 = _global_av2(_index_pressure);
+    coutf << setw(12) << blk
+          << setw(12) << average
+          << setw(12) << sum_average/double(blk)
+          << setw(12) << this->error(sum_average, sum_ave2, blk) << endl;
+    coutf.close();
+  }
   // GOFR //////////////////////////////////////////////////////////////////////
   // TO BE FIXED IN EXERCISE 7
   // MAGNETIZATION /////////////////////////////////////////////////////////////
