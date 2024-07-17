@@ -31,9 +31,17 @@ void Progress_Bar(int progress, int total, int bar_width=50) {
 
 int main (int argc, char *argv[]){
 
+  if(argc!=3){
+		cerr << "ERR: required exercise number and system phase" << endl;
+		exit(-1);
+	}
+
+	int ex =atoi(argv[1]);
+  string phase=argv[2];
+
   int nconf = 1;
   System SYS;
-  SYS.initialize_equilibrated();
+  SYS.initialize_equilibrated(ex,phase);
   SYS.initialize_properties();
   SYS.block_reset(0);
 

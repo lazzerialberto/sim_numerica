@@ -47,6 +47,7 @@ private:
 
   double temp_init; //initial temperature value
   double temp_final; //final temperature value
+  string _path_out; //output path
 
   // Properties
   int _nprop; // Number of properties being measured
@@ -97,7 +98,7 @@ public: // Function declarations
   void print_parameters(double temp_in);
 
   void initialize_for_equilibration(double temp,double r_cut, double rho); //initialize function for equilibration (used in equlibration.cpp)
-  void initialize_equilibrated(); //initialize system properties with equilibrated temperature
+  void initialize_equilibrated(int k,string phase); //initialize system properties with equilibrated temperature
 
 };
 
