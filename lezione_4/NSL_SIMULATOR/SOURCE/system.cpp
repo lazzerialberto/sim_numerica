@@ -812,7 +812,7 @@ void System :: initialize_for_equilibration(double temp,double r_cut,double rho)
 }
 
 
-void System :: initialize_equilibrated(int k,string phase){ // Initialize the System object according to the content of the input files in the ../INPUT/ directory
+void System :: initialize_equilibrated(string phase){ // Initialize the System object according to the content of the input files in the ../INPUT/ directory
 
   int p1, p2; // Read from ../INPUT/Primes a pair of numbers to be used to initialize the RNG
   ifstream Primes("../INPUT/Primes");
@@ -823,9 +823,7 @@ void System :: initialize_equilibrated(int k,string phase){ // Initialize the Sy
   Seed >> seed[0] >> seed[1] >> seed[2] >> seed[3];
   _rnd.SetRandom(seed,p1,p2);
 
-  //exercise and phase output
-  if(k==1){_path_out="../OUTPUT/es_4_"+to_string(k);}
-  else if(k==2){_path_out="../OUTPUT/es_4_"+to_string(k)+"/"+phase;}
+  _path_out="../OUTPUT/"+phase;
 
   ofstream couta(_path_out+"/acceptance.dat"); // Set the heading line in file ../OUTPUT/acceptance.dat
   couta << "#   N_BLOCK:  ACCEPTANCE:" << endl;
