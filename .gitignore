@@ -80,5 +80,6 @@ input-output/
 *.py
 *.pdf
 *.png
+IA_equilib
 
 version_config.hpp
