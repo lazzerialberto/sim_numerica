@@ -26,40 +26,41 @@ int main (int argc, char *argv[]){
 
   fileout << "CUTOFF RAD:     DENSITY:     FINAL TEMP:     INITIAL TEMP:" << endl;
 
-  vector<double> temp={0.6,0.9,1.1,1.6,2.0,2.2};
-  vector<double> r_cut={2.0,2.2,2.5,2.7,4.5,5.0,5.5};
-  vector<double> rho={0.02,0.05,0.1,0.7,0.8,0.9,1.0,1.1,1.2};
+  vector<double> temp={0.6,0.8,0.9,1.1,1.2,1.4,1.6};
+  vector<double> r_cut={5.0,2.5,2.2};
+  vector<double> rho={0.05,0.8,1.1};
 
-  for(int l=0;l<temp.size(); l++){
+  cout << r_cut.size() << endl;
 
-    for(int m=0;m<r_cut.size(); m++){
+  for(int l=0;l<r_cut.size(); l++){
 
-      for(int k=0;k<rho.size();k++){
+    cout << l << endl;
 
-        int nconf = 1;
-        System SYS;
-        SYS.initialize_for_equilibration(temp[l],r_cut[m],rho[k]);
-        SYS.initialize_properties();
-        SYS.block_reset(0);
+    for(int m=0; m<temp.size();m++){
 
-        for(int i=0; i < SYS.get_nbl(); i++){ //loop over blocks
-          for(int j=0; j < SYS.get_nsteps(); j++){ //loop over steps in a block
-            SYS.step();
-            SYS.measure();
-          }
-          SYS.averages(i+1);
-          SYS.block_reset(i+1);
+      int nconf = 1;
+      System SYS;
+      SYS.initialize_for_equilibration(temp[m],r_cut[l],rho[l]);
+      SYS.initialize_properties();
+      SYS.block_reset(0);
+
+      for(int i=0; i < SYS.get_nbl(); i++){ //loop over blocks
+        for(int j=0; j < SYS.get_nsteps(); j++){ //loop over steps in a block
+          SYS.step();
+          SYS.measure();
         }
-
-        SYS.print_parameters(temp[l]);
-        SYS.finalize();
-      
+        SYS.averages(i+1);
+        SYS.block_reset(i+1);
       }
+
+      SYS.print_parameters(temp[m]);
+      SYS.finalize();
+      
     }
     //adding progress bar
-    Progress_Bar(l,temp.size());
+    Progress_Bar(l,r_cut.size());
   }
-  cout << endl;
+  std::cout << endl;
 
   return 0;
 }

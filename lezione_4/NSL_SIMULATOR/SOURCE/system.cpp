@@ -723,6 +723,8 @@ void System :: initialize_for_equilibration(double temp,double r_cut,double rho)
   Seed >> seed[0] >> seed[1] >> seed[2] >> seed[3];
   _rnd.SetRandom(seed,p1,p2);
 
+  _path_out="../OUTPUT";
+
   ofstream couta("../OUTPUT/acceptance.dat"); // Set the heading line in file ../OUTPUT/acceptance.dat
   couta << "#   N_BLOCK:  ACCEPTANCE:" << endl;
   couta.close();
