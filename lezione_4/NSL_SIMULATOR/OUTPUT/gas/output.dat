@@ -6,7 +6,7 @@ R_CUT= 5
 DELTA= 0.0005
 NBLOCKS= 100
 NSTEPS= 1000
-STARTING TEMPERATURE= 1.1931
+STARTING TEMPERATURE= 0.9517
 Reading input completed!
 System initialized!
 Reading properties completed!
