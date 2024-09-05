@@ -33,7 +33,7 @@ make clean
 
 Before running the code, equilibration is needed. With `python3` run:
 ```shell
-python equilibration.py
+python3 equilibration.py
 ```
 This will add a line in the input file which reports the temperature which start the simulation at to reach the real input temperature at equilibrium.
 Then to run the code phase specification is needed:
