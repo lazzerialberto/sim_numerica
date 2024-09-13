@@ -18,7 +18,7 @@ int main(int argc, char * argv[]){
         exit(-1);
     }
 
-    int N=100;
+    int N=200;
     int M=100000;
     bool gauss;
     groundwf ground;
@@ -41,6 +41,7 @@ int main(int argc, char * argv[]){
 
     Metropolis metro(delta,gauss,rnd);
 
+    //setting delta in order to have ~50% acceptance
     metro.SetStepLenght(r,prob);
 
     posizione r_n(atof(argv[4]),atof(argv[5]),atof(argv[6]));

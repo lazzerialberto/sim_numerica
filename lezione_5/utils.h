@@ -56,12 +56,12 @@ class Metropolis{
         int n_accept,n_total;
         double n_delta;
         bool n_gauss;
-        Random n_rand;
+        Random &n_rand;
     
     public:
 
         //default constructor
-        Metropolis(double,bool,Random);
+        Metropolis(double,bool,Random &);
 
         //default destructor
         ~Metropolis();
@@ -94,10 +94,10 @@ class blockingaverage{
         ~blockingaverage();
 
         //measuring
-        double measure(int,Metropolis,FunzioneBase&,posizione);
+        double measure(int,Metropolis,FunzioneBase&,posizione &);
 
         //computing averages
-        void averages(int,int,Metropolis, FunzioneBase & ,posizione );
+        void averages(int,int,Metropolis, FunzioneBase & ,posizione &);
 
         //results
         double GetAv();

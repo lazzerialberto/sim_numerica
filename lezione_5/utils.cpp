@@ -49,7 +49,7 @@ double GBM :: step(double x_i,double t_ii,double t_i,double mu,double sigma){
 
 
 //constructor and destructor for Metropolis
-Metropolis::Metropolis(double delta,bool gauss,Random rnd){n_accept=0,n_total=0,n_delta=delta, n_gauss=gauss,n_rand=rnd;}
+Metropolis::Metropolis(double delta,bool gauss,Random &rnd): n_rand(rnd) {n_accept=0,n_total=0,n_delta=delta, n_gauss=gauss;}
 Metropolis::~Metropolis(){}
 
 double Metropolis::AccRate(){
@@ -76,13 +76,14 @@ void Metropolis::Step(posizione &r,FunzioneBase & prob){
     if(n_rand.Rannyu()<=A){
         r=r_c;
         n_accept++;
+        //cout << r.GetR() << endl;
     }
     n_total++;
 }
 
 void Metropolis::SetStepLenght(posizione &r,FunzioneBase & prob){
 
-    for(int i=0;i<100;i++){
+    for(int i=0;i<1000;i++){
         this->Step(r,prob);
     }
 
@@ -146,7 +147,7 @@ blockingaverage::blockingaverage(char* argv[],int n_steps){
 
 blockingaverage::~blockingaverage(){}
 
-double blockingaverage::measure(int n_steps, Metropolis metro,FunzioneBase & prob,posizione r){
+double blockingaverage::measure(int n_steps, Metropolis metro,FunzioneBase & prob,posizione &r){
 
     double sum=0;
 
@@ -159,7 +160,7 @@ double blockingaverage::measure(int n_steps, Metropolis metro,FunzioneBase & pro
 
 }
 
-void blockingaverage::averages(int i_block ,int n_steps,Metropolis metro, FunzioneBase & prob,posizione r){
+void blockingaverage::averages(int i_block ,int n_steps,Metropolis metro, FunzioneBase & prob,posizione & r){
 
     if(i_block==0){
         m_av=0;
