@@ -13,12 +13,12 @@ using namespace std;
 
 int main(int argc, char * argv[]){
 
-    if(argc!=7){
-        std::cout << "Errors:\ntransition probability needed, write gauss or unif\nset transition pass\nset ground (g) or excited (e) state\nset starting position" << endl;
+    if(argc!=8){
+        std::cout << "Errors:\ntransition probability needed, write gauss or unif\nset transition pass\nset ground (g) or excited (e) state\nset starting position\nequilibration nedeed? (yes or no)" << endl;
         exit(-1);
     }
 
-    int N=200;
+    int N=100;
     int M=100000;
     bool gauss;
     groundwf ground;
@@ -47,6 +47,13 @@ int main(int argc, char * argv[]){
     posizione r_n(atof(argv[4]),atof(argv[5]),atof(argv[6]));
 
     blockingaverage block(argv,M);
+
+    //equilibration
+    if(std::string(argv[7])=="yes"){
+        for(int j=0; j<40; j++){
+            block.measure(M,metro,prob,r_n);
+        }
+    }
 
     for(int i=0;i<N; i++){
         block.averages(i,M,metro,prob,r_n);
