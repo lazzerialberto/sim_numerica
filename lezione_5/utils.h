@@ -96,6 +96,9 @@ class blockingaverage{
         //measuring
         double measure(int,Metropolis,FunzioneBase&,posizione &);
 
+        //measuring and saving positions
+        void measure_savepos(int,Metropolis,FunzioneBase&,posizione &);
+
         //computing averages
         void averages(int,int,Metropolis, FunzioneBase & ,posizione &);
 

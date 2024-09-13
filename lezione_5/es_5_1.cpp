@@ -14,7 +14,7 @@ using namespace std;
 int main(int argc, char * argv[]){
 
     if(argc!=8){
-        std::cout << "Errors:\ntransition probability needed, write gauss or unif\nset transition pass\nset ground (g) or excited (e) state\nset starting position\nequilibration nedeed? (yes or no)" << endl;
+        std::cout << "Errors:\ntransition probability needed, write gauss or unif\nset transition pass\nset ground (g) or excited (e) state\nset starting position\nequilibration needed? (yes or no)" << endl;
         exit(-1);
     }
 
@@ -58,6 +58,8 @@ int main(int argc, char * argv[]){
     for(int i=0;i<N; i++){
         block.averages(i,M,metro,prob,r_n);
     }
+
+    block.measure_savepos(10000,metro,prob,r_n);
 
     rnd.SaveSeed();
 

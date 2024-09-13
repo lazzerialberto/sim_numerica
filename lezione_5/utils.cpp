@@ -160,6 +160,19 @@ double blockingaverage::measure(int n_steps, Metropolis metro,FunzioneBase & pro
 
 }
 
+void blockingaverage::measure_savepos(int n_steps, Metropolis metro,FunzioneBase & prob,posizione &r){
+
+    ofstream fileout("./OUTPUT/positions.dat");
+
+    fileout << "x,y,z,r" << endl;
+
+    for(int i=0; i<n_steps; i++){
+        metro.Step(r,prob);
+        fileout << r.GetX() << "," << r.GetY() << "," << r.GetZ() << "," << r.GetR() << endl;
+    }
+
+}
+
 void blockingaverage::averages(int i_block ,int n_steps,Metropolis metro, FunzioneBase & prob,posizione & r){
 
     if(i_block==0){
