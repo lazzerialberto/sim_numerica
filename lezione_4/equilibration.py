@@ -58,19 +58,6 @@ elif data_dict['R_CUT']==5.0 and data_dict['RHO']==0.05:
     plt.legend()
     plt.show()
 
-    '''elif data_dict['R_CUT']==5.0 and data_dict['RHO']==0.05:
-    model.fit(data[0:7,-2].reshape(-1,1),data[0:7,-1])
-    y_pred=model.predict(data[0:7,-2].reshape(-1,1))
-    insert_position = 9 
-    lines.insert(insert_position,   f"INIT_TEMP\t\t\t   "+str(round(float(y_pred[4]),4)))
-    #plt.scatter(data[0:7,-2], data[0:7,-1], color='navy', label='Real data')
-    plt.errorbar(data[0:7,-2], data[0:7,-1],yerr=np.sqrt(sum(((y_pred-data[0:7,-1])**2)/len(y_pred))), fmt='o',elinewidth=1.75, capsize=4, capthick=1.75, color='navy',ecolor='blue', label='Real data')
-    plt.plot(data[0:7,-2], y_pred, color='red', label='Linear Fit')
-    plt.xlabel('temp_init')
-    plt.ylabel('temp_fin')
-    plt.legend()
-    plt.show()'''
-
 
 
 else:
