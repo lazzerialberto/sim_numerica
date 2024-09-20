@@ -589,7 +589,7 @@ void System :: measure(){ // Measure properties
       for(int i=0; i<_npart; i++){
         sum_s_i+=double(_particle(i).getspin());
       }
-      _measurement(_index_magnet) = sum_s_i;
+      _measurement(_index_magnet) = sum_s_i/_npart;
     }
   }
   // SPECIFIC HEAT /////////////////////////////////////////////////////////////
@@ -620,7 +620,7 @@ void System :: measure(){ // Measure properties
       for(int i=0; i<_npart; i++){
         sum_s_i+=double(_particle(i).getspin());
       }
-      _measurement(_index_chi)=pow(sum_s_i,2);
+      _measurement(_index_chi)=pow(sum_s_i,2)/_npart;
     }
   }
 

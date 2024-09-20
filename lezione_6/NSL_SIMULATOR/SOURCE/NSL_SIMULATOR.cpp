@@ -69,13 +69,13 @@ int main (int argc, char * argv[]){
       SYS.averages(i+1);
       SYS.block_reset(i+1);
 
-      //adding progress bar
-      Progress_Bar(i,SYS.get_nbl());
 
     }
     SYS.finalize();
-    cout << endl;
+    //adding progress bar
+    Progress_Bar(l,static_cast<int>((2.0-0.5)/step_lenght));
   }
+  cout << endl;
 
   return 0;
 }
