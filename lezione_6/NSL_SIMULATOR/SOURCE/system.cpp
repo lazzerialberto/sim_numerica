@@ -66,7 +66,19 @@ double System :: Force(int i, int dim){
 
 void System :: move(int i){ // Propose a MC move for particle i
   if(_sim_type == 3){ //Gibbs sampler for Ising
-    // TO BE FIXED IN EXERCISE 6
+
+    double prob_n;
+    prob_n=1./(1.+exp(-2.0*_beta*(_J*((_particle(this->pbc(i-1)).getspin()+_particle(this->pbc(i+1)).getspin())+_H)))); //probability of flipping
+
+    if(_rnd.Rannyu()<prob_n){
+      _particle(i).setspin(1);
+    }
+    else{
+      _particle(i).setspin(-1);
+    }
+    //accept in any case
+    _naccepted++;
+
   } else {           // M(RT)^2
     if(_sim_type == 1){       // LJ system
       vec shift(_ndim);       // Will store the proposed translation
@@ -301,7 +313,13 @@ void System :: initialize_properties(){ // Initialize data members used for meas
     while ( !input.eof() ){
       input >> property;
       if( property == "POTENTIAL_ENERGY" ){
-        ofstream coutp(_path_out+"/potential_energy.dat");
+        ofstream coutp;
+        if(_sim_type==2 or _sim_type==1 or _sim_type==0){
+          coutp.open(_path_out+"/potential_energy.dat");
+        }
+        else{
+          coutp.open(_path_out+"/potential_energy_gibbs.dat");
+        }
         coutp << "#     BLOCK:  ACTUAL_PE:     PE_AVE:      ERROR:" << endl;
         coutp.close();
         _nprop++;
@@ -318,8 +336,20 @@ void System :: initialize_properties(){ // Initialize data members used for meas
         _index_kenergy = index_property;
         index_property++;
       } else if( property == "TOTAL_ENERGY" ){
-        ofstream coutt(_path_out+"/total_energy.dat");
-        coutt << "#     BLOCK:   ACTUAL_TE:    TE_AVE:      ERROR:" << endl;
+        ofstream coutt;
+        if(_sim_type==2 or _sim_type==1 or _sim_type==0){
+          coutt.open(_path_out+"/total_energy.dat");
+          if(_sim_type==2){
+            coutt << "#     TEMP:     TE_AVE:       ERROR:" << endl;
+          }
+          else{
+            coutt << "#     BLOCK:   ACTUAL_TE:    TE_AVE:      ERROR:" << endl;
+          }
+        }
+        else{
+          coutt.open(_path_out+"/total_energy_gibbs.dat");
+          coutt << "#     TEMP:     TE_AVE:       ERROR:" << endl;
+        }
         coutt.close();
         _nprop++;
         _measure_tenergy = true;
@@ -353,7 +383,13 @@ void System :: initialize_properties(){ // Initialize data members used for meas
         _index_gofr = index_property;
         index_property+= _n_bins;
       } else if( property == "MAGNETIZATION" ){
-        ofstream coutpr(_path_out+"/magnetization.dat");
+        ofstream coutpr;
+        if(_sim_type==2 or _sim_type==1 or _sim_type==0){
+          coutpr.open(_path_out+"/magnetization.dat");
+        }
+        else{
+          coutpr.open(_path_out+"/magnetization_gibbs.dat");
+        }
         coutpr << "#     TEMP:     M_AVE:       ERROR:" << endl;
         coutpr.close();
         _nprop++;
@@ -361,7 +397,13 @@ void System :: initialize_properties(){ // Initialize data members used for meas
         _index_magnet = index_property;
         index_property++;
       } else if( property == "SPECIFIC_HEAT" ){
-        ofstream coutpr(_path_out+"/specific_heat.dat");
+        ofstream coutpr;
+        if(_sim_type==2 or _sim_type==1 or _sim_type==0){
+          coutpr.open(_path_out+"/specific_heat.dat");
+        }
+        else{
+          coutpr.open(_path_out+"/specific_heat_gibbs.dat");
+        }
         coutpr << "#     TEMP:   CV_AVE:      ERROR:" << endl;
         coutpr.close();
         _nprop++;
@@ -369,7 +411,13 @@ void System :: initialize_properties(){ // Initialize data members used for meas
         _index_cv = index_property;
         index_property++;
       } else if( property == "SUSCEPTIBILITY" ){
-        ofstream coutpr(_path_out+"/susceptibility.dat");
+        ofstream coutpr;
+        if(_sim_type==2 or _sim_type==1 or _sim_type==0){
+          coutpr.open(_path_out+"/susceptibility.dat");
+        }
+        else{
+          coutpr.open(_path_out+"/susceptibility_gibbs.dat");
+        }
         coutpr << "#     TEMP:   X_AVE:       ERROR:" << endl;
         coutpr.close();
         _nprop++;
@@ -598,7 +646,8 @@ void System :: measure(){ // Measure properties
       _measurement(_index_cv)=0.0;
     }
     else{
-      double s_i, s_j,tenergy_temp2,tenergy_temp1;
+      double s_i, s_j;
+      double tenergy_temp2=0,tenergy_temp1=0;
       for (int i=0; i<_npart; i++){
         s_i = double(_particle(i).getspin());
         s_j = double(_particle(this->pbc(i+1)).getspin());
@@ -675,6 +724,18 @@ void System :: averages(int blk){
             << setw(12) << this->error(sum_average, sum_ave2, blk) << endl;
       coutf.close();
     }
+    if(_sim_type==3){
+      coutf.open(_path_out+"/total_energy_gibbs.dat",ios::app);
+      average  = _average(_index_tenergy);
+      sum_average = _global_av(_index_tenergy);
+      sum_ave2 = _global_av2(_index_tenergy);
+      if((blk+1)==_nblocks){
+        coutf << setw(12) << _temp
+              << setw(12) << sum_average/double(blk)
+              << setw(12) << this->error(sum_average, sum_ave2, blk) << endl;
+        coutf.close();
+      }
+    }
     else{
       coutf.open(_path_out+"/total_energy.dat",ios::app);
       average  = _average(_index_tenergy);
@@ -719,41 +780,83 @@ void System :: averages(int blk){
   
   // MAGNETIZATION /////////////////////////////////////////////////////////////
   if(_measure_magnet){
-    coutf.open(_path_out+"/magnetization.dat",ios::app);
-    average=_average(_index_magnet);
-    sum_average=_global_av(_index_magnet);
-    sum_ave2=_global_av2(_index_magnet);
-    if((blk+1)==_nblocks){
-      coutf << setw(12) << _temp
-            << setw(12) << sum_average/double(blk)
-            << setw(12) << this->error(sum_average, sum_ave2, blk) << endl;
-      coutf.close();
+    if(_sim_type==3){
+      coutf.open(_path_out+"/magnetization_gibbs.dat",ios::app);
+      average=_average(_index_magnet);
+      sum_average=_global_av(_index_magnet);
+      sum_ave2=_global_av2(_index_magnet);
+      if((blk+1)==_nblocks){
+        coutf << setw(12) << _temp
+              << setw(12) << sum_average/double(blk)
+              << setw(12) << this->error(sum_average, sum_ave2, blk) << endl;
+        coutf.close();
+      }
+    }
+    else{
+      coutf.open(_path_out+"/magnetization.dat",ios::app);
+      average=_average(_index_magnet);
+      sum_average=_global_av(_index_magnet);
+      sum_ave2=_global_av2(_index_magnet);
+      if((blk+1)==_nblocks){
+        coutf << setw(12) << _temp
+              << setw(12) << sum_average/double(blk)
+              << setw(12) << this->error(sum_average, sum_ave2, blk) << endl;
+        coutf.close();
+      }
     }
   }
   // SPECIFIC HEAT /////////////////////////////////////////////////////////////
   if(_measure_cv){
-    coutf.open(_path_out+"/specific_heat.dat",ios::app);
-    average=_average(_index_cv);
-    sum_average=_global_av(_index_cv);
-    sum_ave2=_global_av2(_index_cv);
-    if((blk+1)==_nblocks){
-      coutf << setw(12) << _temp
-            << setw(12) << sum_average/double(blk)
-            << setw(12) << this->error(sum_average, sum_ave2, blk) << endl;
-      coutf.close();
+    if(_sim_type==3){
+      coutf.open(_path_out+"/specific_heat_gibbs.dat",ios::app);
+      average=_average(_index_cv);
+      sum_average=_global_av(_index_cv);
+      sum_ave2=_global_av2(_index_cv);
+      if((blk+1)==_nblocks){
+        coutf << setw(12) << _temp
+              << setw(12) << sum_average/double(blk)
+              << setw(12) << this->error(sum_average, sum_ave2, blk) << endl;
+        coutf.close();
+      }
+    }
+    else{
+      coutf.open(_path_out+"/specific_heat.dat",ios::app);
+      average=_average(_index_cv);
+      sum_average=_global_av(_index_cv);
+      sum_ave2=_global_av2(_index_cv);
+      if((blk+1)==_nblocks){
+        coutf << setw(12) << _temp
+              << setw(12) << sum_average/double(blk)
+              << setw(12) << this->error(sum_average, sum_ave2, blk) << endl;
+        coutf.close();
+      }
     }
   }
   // SUSCEPTIBILITY ////////////////////////////////////////////////////////////
   if(_measure_chi){
-    coutf.open(_path_out+"/susceptibility.dat",ios::app);
-    average=_average(_index_chi);
-    sum_average=_global_av(_index_chi);
-    sum_ave2=_global_av2(_index_chi);
-    if((blk+1)==_nblocks){
-      coutf << setw(12) << _temp
-            << setw(12) << sum_average/double(blk)
-            << setw(12) << this->error(sum_average, sum_ave2, blk) << endl;
-      coutf.close();
+    if(_sim_type==3){
+      coutf.open(_path_out+"/susceptibility_gibbs.dat",ios::app);
+      average=_average(_index_chi);
+      sum_average=_global_av(_index_chi);
+      sum_ave2=_global_av2(_index_chi);
+      if((blk+1)==_nblocks){
+        coutf << setw(12) << _temp
+              << setw(12) << sum_average/double(blk)
+              << setw(12) << this->error(sum_average, sum_ave2, blk) << endl;
+        coutf.close();
+      }
+    }
+    else{
+      coutf.open(_path_out+"/susceptibility.dat",ios::app);
+      average=_average(_index_chi);
+      sum_average=_global_av(_index_chi);
+      sum_ave2=_global_av2(_index_chi);
+      if((blk+1)==_nblocks){
+        coutf << setw(12) << _temp
+              << setw(12) << sum_average/double(blk)
+              << setw(12) << this->error(sum_average, sum_ave2, blk) << endl;
+        coutf.close();
+      }
     }
   }
   // ACCEPTANCE ////////////////////////////////////////////////////////////////
