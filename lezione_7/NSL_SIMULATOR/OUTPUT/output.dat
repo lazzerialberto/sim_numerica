@@ -1,0 +1,43 @@
+ISING 1D MONTE CARLO (MRT^2) SIMULATION
+TEMPERATURE= 0.5
+NPART= 50
+SIDE=      3.68403     3.68403     3.68403
+R_CUT= 0
+DELTA= 0
+NBLOCKS= 100
+NSTEPS= 10000
+Reading input completed!
+System initialized!
+Reading properties completed!
+Block completed: 100
+Simulation completed!
+Block completed: 100
+Simulation completed!
+Block completed: 100
+Simulation completed!
+Block completed: 100
+Simulation completed!
+Block completed: 100
+Simulation completed!
+Block completed: 100
+Simulation completed!
+Block completed: 100
+Simulation completed!
+Block completed: 100
+Simulation completed!
+Block completed: 100
+Simulation completed!
+Block completed: 100
+Simulation completed!
+Block completed: 100
+Simulation completed!
+Block completed: 100
+Simulation completed!
+Block completed: 100
+Simulation completed!
+Block completed: 100
+Simulation completed!
+Block completed: 100
+Simulation completed!
+Block completed: 100
+Simulation completed!
