@@ -19,8 +19,8 @@ int main(int argc, char* argv[]){
     }
 
     int N=100;
-    int M=500000;
-    int SA_steps=1000;
+    int M=100000;
+    int SA_steps=500;
 
     double mu=1.;
     double sigma=1.;

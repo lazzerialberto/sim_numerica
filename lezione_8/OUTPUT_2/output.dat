@@ -1,13 +1,13 @@
 ***************ENERGY MINIMIZATION***************
 Simulation type: Simulated Annealing + Variational MonteCarlo
 Number of block to estimate <H>: 100
-Number of steps for each block: 10000
+Number of steps for each block: 100000
 Starting mu: 1
 Starting sigma: 1
 Starting Temperature: 1.5
-Temperature moltiplication factor in each step: 0.8
-Final Temperature: 0.00453347
-Min Energy: -0.301219
-Final mu: 0.753317
-Final sigma: 0.649893
-Number of iterations needed: 25
+Temperature moltiplication factor in each step: 0.9
+Final Temperature: 0.000939868
+Min Energy: -0.307417
+Final mu: -0.786158
+Final sigma: 0.65517
+Number of iterations needed: 69
