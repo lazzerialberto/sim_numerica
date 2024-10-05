@@ -9,8 +9,7 @@ Each folder matches a lecture and contains a `makefile`, a `c++` main for each s
 ## Run code
 To run simulation code a GCC compiler is needed. STL is sufficient to build and run the simulation code. For data analysis check the dependences above each "Consegna" in the `jupyter-notebook`.
 Some extra libraries are required depending on the exercise:
-- For Lecture 4 [`armadillo`](https://arma.sourceforge.net/) libraries are required to build the simulations.
-- For Lecture 4 [`ovito`](https://www.ovito.org/) `python` package is needed for data visualization.
+- For Lecture 4,6,7 [`armadillo`](https://arma.sourceforge.net/) libraries are required to build the simulations.
 
 To create the executable using `makefile` use for each specific exercise:
 
@@ -20,7 +19,7 @@ make es_x_x.exe
 Then to run the simulation use:
 
 ```shell
-./es_x_x.exe
+./es_x_x.exe <eventual excericise parameters>
 ```
 
 To remove object files and executable use:
@@ -29,13 +28,17 @@ To remove object files and executable use:
 make clean
 ```
 
-### Lecture 4
+### Lecture 4,6,7
 
-Before running the code, equilibration is needed. With `python3` run:
+Before running the a NVE simulation, equilibration is needed. In the input file set the parameters of the phase required, then with `python3` run:
 ```shell
 python3 equilibration.py
 ```
 This will add a line in the input file which reports the temperature which start the simulation at to reach the real input temperature at equilibrium.
+To build the executable run in the folder "/NSL_SIMULATOR/SOURCE/":
+```shell
+make simulator.exe
+```
 Then to run the code phase specification is needed:
 ```shell
 ./simulator.exe <phase>
