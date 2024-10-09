@@ -4,10 +4,10 @@
 These are NSL exercises during A.A.2023-2024 edition. The `c++` code is used for the simulations, whereas the data analysis is in a `jupyter-notebook`.
 
 ## Structure
-Each folder matches a lecture and contains a `makefile`, a `c++` main for each sub-exercise (e.g. [es_2_1.cpp](/lezione_2/es_2_1.cpp)), various `c++` libraries, simulation results in `csv` files and a single `jupyter-notebook` with data analysis.
+Each folder matches a lecture and contains a `makefile`, a `c++` main for each sub-exercise (e.g. [es_2_1.cpp](/lezione_2/es_2_1.cpp)), various `c++` libraries, simulation results in `csv` or `txt` files and a single `jupyter-notebook` with data analysis.
 
 ## Run code
-To run simulation code a GCC compiler is needed. STL is sufficient to build and run the simulation code. For data analysis check the dependences above each "Consegna" in the `jupyter-notebook`.
+To run simulation code a GCC compiler is needed. STL is sufficient to build and run the simulation code. For data analysis check the dependences above each "SUBMITT" in the `jupyter-notebook`.
 Some extra libraries are required depending on the exercise (specificated below).
 
 To create the executable using `makefile` use for each specific exercise:
@@ -31,7 +31,7 @@ make clean
 
 For these lectures [`armadillo`](https://arma.sourceforge.net/) libraries are required to build the simulations.
 
-Before running the a NVE simulation, equilibration is needed. In the input file set the parameters of the phase required, then with `python3` run:
+Before running a NVE simulation, temperature equilibration is needed (not needed for a NVT simulation). In the input file set the parameters of the phase required, then with `python3` run:
 ```shell
 python3 equilibration.py
 ```
