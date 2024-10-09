@@ -8,8 +8,7 @@ Each folder matches a lecture and contains a `makefile`, a `c++` main for each s
 
 ## Run code
 To run simulation code a GCC compiler is needed. STL is sufficient to build and run the simulation code. For data analysis check the dependences above each "Consegna" in the `jupyter-notebook`.
-Some extra libraries are required depending on the exercise:
-- For Lecture 4,6,7 [`armadillo`](https://arma.sourceforge.net/) libraries are required to build the simulations.
+Some extra libraries are required depending on the exercise (specificated below).
 
 To create the executable using `makefile` use for each specific exercise:
 
@@ -29,6 +28,8 @@ make clean
 ```
 
 ### Lecture 4,6,7
+
+For these lectures [`armadillo`](https://arma.sourceforge.net/) libraries are required to build the simulations.
 
 Before running the a NVE simulation, equilibration is needed. In the input file set the parameters of the phase required, then with `python3` run:
 ```shell
