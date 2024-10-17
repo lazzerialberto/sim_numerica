@@ -1,0 +1,11 @@
+Configuration           square
+Individuals             200
+Cities                  34
+Generations             150
+Loss                    L^2
+Selection_factor        6
+Crossover_prob          0.7
+Pair_perm_prob          0.05
+Perm_prob               0.04
+Shift_prob              0.03
+Inversion_prob          0.03

@@ -1,0 +1,12 @@
+**************** TRAVELING SALESMAN PROBLEM *********************
+Disposition: square
+Number of individuals: 200
+Number of cities: 34
+Number of generations: 150
+Loss used for minimization: L^2
+Selection factor: 6
+Crossover probability: 0.7
+Pair permutation probability: 0.05
+Permutation probability: 0.04
+Shift probability: 0.03
+Inversion probability: 0.03
