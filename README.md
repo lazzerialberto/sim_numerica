@@ -49,7 +49,7 @@ Then to run the code phase specification is needed:
 
 For this lecture [`mpich`](https://www.mpich.org/) compiler is required for multiprocessing code.
 
-In `makefile` compiler `$(CC)=g++` is modified in `$(CC)=mpicxx`. The `make` command is the same:
+In `makefile` compiler `CC=g++` is modified in `CC=mpicxx`. The `make` command is the same:
 ```shell
 make tsp.exe
 ```
