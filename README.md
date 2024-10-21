@@ -45,4 +45,18 @@ Then to run the code phase specification is needed:
 ./simulator.exe <phase>
 ```
 
+### Lecture 10
+
+For this lecture [`mpich`](https://www.mpich.org/) compiler is required for multiprocessing code.
+
+In `makefile` compiler `$(CC)=g++` is modified in `$(CC)=mpicxx`. The `make` command is the same:
+```shell
+make tsp.exe
+```
+
+Then to run the code explicit the number of processes required with this command:
+```shell
+mpiexec -n <processes> ./tsp.exe
+```
+
 Other extra will be indicated below.
