@@ -1,0 +1,11 @@
+Configuration           italy
+Individuals             400
+Cities                  None
+Generations             1100
+Loss                    L^2
+Selection_factor        6
+Crossover_prob          0.75
+Pair_perm_prob          0.1
+Perm_prob               0.08
+Shift_prob              0.07
+Inversion_prob          0.07
