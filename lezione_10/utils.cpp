@@ -659,19 +659,19 @@ void TSP::print_output(int rank,int processes){
         _out1.open(_path_name+"output.dat");
 
         _out1 << "**************** TRAVELING SALESMAN PROBLEM *********************" << endl;
-        _out1 << "Disposition: " << setw(20) << _circle << endl;
-        _out1 << "Number of individuals: " << setw(20) << _nindivid << endl;
-        _out1 << "Number of cities: " << setw(20) << _ncities << endl;
-        _out1 << "Number of generations: " << setw(20) <<  _ngen << endl;
-        _out1 << "Loss used for minimization: " << setw(20) <<  _norm << endl;
-        _out1 << "Selection factor: " << setw(20) << _p_sel << endl;
-        _out1 << "Crossover probability: " << setw(20) <<  _p_cross << endl;
-        _out1 << "Pair permutation probability: " << setw(20) <<  _p_pp << endl;
-        _out1 << "Permutation probability: " << setw(20) << _p_p << endl;
-        _out1 << "Shift probability: " << setw(20) << _p_s << endl;
-        _out1 << "Inversion probability: " << setw(20) << _p_i << endl;
-        _out1 << "Number of processes: " << setw(20) << processes << endl;
-        _out1 << "Printing only rank: " << setw(20) << rank << endl;
+        _out1 << "Disposition: " << _circle << endl;
+        _out1 << "Number of individuals: " << _nindivid << endl;
+        _out1 << "Number of cities: " << _ncities << endl;
+        _out1 << "Number of generations: " <<  _ngen << endl;
+        _out1 << "Loss used for minimization: " <<  _norm << endl;
+        _out1 << "Selection factor: " << _p_sel << endl;
+        _out1 << "Crossover probability: " <<  _p_cross << endl;
+        _out1 << "Pair permutation probability: " <<  _p_pp << endl;
+        _out1 << "Permutation probability: " << _p_p << endl;
+        _out1 << "Shift probability: " << _p_s << endl;
+        _out1 << "Inversion probability: " << _p_i << endl;
+        _out1 << "Number of processes: " << processes << endl;
+        _out1 << "Printing only rank: " << rank+1 << endl;
 
         _out1.close();
 
@@ -686,6 +686,13 @@ void TSP::print_output(int rank,int processes){
         out3.close();
     }
 
+}
+
+void TSP::finalize(int rank, double dt){
+
+    _out1.open(_path_name+"output.dat",ios::app);
+    _out1 << "Time for process " << rank+1 << ": " << dt << " s" << endl;
+    _out1.close();
 }
 
 std::string TSP::get_circle() const {

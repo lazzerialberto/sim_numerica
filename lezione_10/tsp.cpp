@@ -48,6 +48,8 @@ int main(int argc,char*argv[]){
     // Ottieni il rank del processo corrente
     int world_rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
+
+    double t_start= MPI_Wtime();
     
     rnd.Initialize(world_rank);
 
@@ -96,6 +98,11 @@ int main(int argc,char*argv[]){
         //Progress_Bar(i,tsp.get_generations());
     }
     //std::cout << endl;
+
+    double t_end = MPI_Wtime();
+    double dt = t_end-t_start;
+
+    tsp.finalize(world_rank,dt);
 
     MPI_Finalize();
 

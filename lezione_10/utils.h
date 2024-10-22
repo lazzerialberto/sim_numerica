@@ -88,7 +88,8 @@ class TSP {
         TSP(); //constructor
 
         void print_output();
-        void print_output(int rank, int processes); //constructor for parallelization
+        void print_output(int rank, int processes); //printer for parallelization
+        void finalize(int rank,double dt);
 
         //methods to get variables
         std::string get_circle() const;
