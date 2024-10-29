@@ -42,7 +42,7 @@ GBM :: ~GBM(){m_rand.SaveSeed();};
 //return x_i+1 for a geometric brownian motion with constant mu and sigma
 double GBM :: step(double x_i,double t_ii,double t_i,double mu,double sigma){
 
-    double x_ii=x_i*exp((mu-0.5*pow(sigma,2))*sqrt(t_ii-t_i)+sigma*m_rand.Gauss(0,1)*sqrt(t_ii-t_i));
+    double x_ii=x_i*exp((mu-0.5*pow(sigma,2))*(t_ii-t_i)+sigma*m_rand.Gauss(0,1)*sqrt(t_ii-t_i));
 
     return x_ii;
 
