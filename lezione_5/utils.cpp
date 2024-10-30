@@ -91,7 +91,7 @@ void Metropolis::SetStepLenght(posizione &r,FunzioneBase & prob){
 
     while(this->AccRate()>50.01 or this->AccRate()<49.99){
 
-        if(this->AccRate()>50.1){
+        if(this->AccRate()>50.01){
             n_delta=n_delta+0.005;
             cout << "increasing step lenght by 0.005" << endl;
         }
