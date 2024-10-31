@@ -58,5 +58,3 @@ Then to run the code explicit the number of processes required with this command
 ```shell
 mpiexec -n <processes> ./tsp.exe
 ```
-
-Other extra will be indicated below.
