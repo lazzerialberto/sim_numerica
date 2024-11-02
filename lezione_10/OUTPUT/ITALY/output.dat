@@ -12,13 +12,13 @@ Shift probability: 0.07
 Inversion probability: 0.07
 Number of processes: 10
 Printing only rank: 1
-Time for process 7: 63.6461 s
-Time for process 6: 64.7097 s
-Time for process 8: 65.1201 s
-Time for process 5: 65.1539 s
-Time for process 1: 65.2043 s
-Time for process 10: 65.4201 s
-Time for process 2: 65.4264 s
-Time for process 4: 65.6861 s
-Time for process 9: 65.7475 s
-Time for process 3: 66.0869 s
+Time for process 3: 127.411 s
+Time for process 2: 136.114 s
+Time for process 1: 142.154 s
+Time for process 10: 145.347 s
+Time for process 9: 153.163 s
+Time for process 5: 153.835 s
+Time for process 8: 156.167 s
+Time for process 4: 157.021 s
+Time for process 7: 158.75 s
+Time for process 6: 163.261 s

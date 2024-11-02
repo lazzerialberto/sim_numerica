@@ -39,6 +39,7 @@ int main(int argc,char*argv[]){
     TSP tsp;
     element e(tsp.get_cities());
     e.generate_initial_config(rnd,tsp.get_circle());
+    int n_migr=1; //number of element to exchange in the migration
 
     MPI_Init(&argc,&argv);
 
@@ -72,27 +73,30 @@ int main(int argc,char*argv[]){
             pop.print_best_path(i+1);
         }
 
-        if(i%50==0){
+        if(i%50==0){ //every 50 generations send the first n_migr configuration at the following process, and recive the first n_migr from the previous process
 
             int prev = (world_rank - 1 + world_size) % world_size;
             int next = (world_rank + 1) % world_size;
 
-            std::vector<int> message_to_send=pop.get_element(0).get_label();
-            std::vector<int> message_received(tsp.get_cities());
+            for(int j=0; j<n_migr; j++){
 
-            MPI_Request send_request, recv_request;
-            MPI_Status status;
+                std::vector<int> message_to_send=pop.get_element(j).get_label();
+                std::vector<int> message_received(tsp.get_cities());
 
-            MPI_Irecv(message_received.data(), message_received.size(), MPI_INT, prev, 0, MPI_COMM_WORLD, &recv_request);
-            MPI_Isend(message_to_send.data(), message_to_send.size(), MPI_INT, next, 0, MPI_COMM_WORLD, &send_request);
+                MPI_Request send_request, recv_request;
+                MPI_Status status;
 
-            MPI_Wait(&recv_request, &status);
-            MPI_Wait(&send_request, &status);
+                MPI_Irecv(message_received.data(), message_received.size(), MPI_INT, prev, j, MPI_COMM_WORLD, &recv_request);
+                MPI_Isend(message_to_send.data(), message_to_send.size(), MPI_INT, next, j, MPI_COMM_WORLD, &send_request);
 
-            element recieved(pop.get_element(0));
-            recieved.set_label(message_received);
+                MPI_Wait(&recv_request, &status);
+                MPI_Wait(&send_request, &status);
 
-            pop.Set_element(0,recieved);
+                element recieved(pop.get_element(j));
+                recieved.set_label(message_received);
+
+                pop.Set_element(j,recieved);
+            }
         }
 
         //Progress_Bar(i,tsp.get_generations());
