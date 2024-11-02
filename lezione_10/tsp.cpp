@@ -73,7 +73,7 @@ int main(int argc,char*argv[]){
             pop.print_best_path(i+1);
         }
 
-        if(i%50==0){ //every 50 generations send the first n_migr configuration at the following process, and recive the first n_migr from the previous process
+        if(i%50==0){ //every 50 generations send the first n_migr configurations at the following process, and recive the first n_migr from the previous process
 
             int prev = (world_rank - 1 + world_size) % world_size;
             int next = (world_rank + 1) % world_size;
