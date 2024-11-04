@@ -1,0 +1,24 @@
+**************** TRAVELING SALESMAN PROBLEM *********************
+Disposition: italy
+Number of individuals: 400
+Number of cities: 110
+Number of generations: 1100
+Loss used for minimization: L^2
+Selection factor: 6
+Crossover probability: 0.75
+Pair permutation probability: 0.1
+Permutation probability: 0.08
+Shift probability: 0.07
+Inversion probability: 0.07
+Number of processes: 10
+Printing only rank: 1
+Time for process 3: 127.411 s
+Time for process 2: 136.114 s
+Time for process 1: 142.154 s
+Time for process 10: 145.347 s
+Time for process 9: 153.163 s
+Time for process 5: 153.835 s
+Time for process 8: 156.167 s
+Time for process 4: 157.021 s
+Time for process 7: 158.75 s
+Time for process 6: 163.261 s
