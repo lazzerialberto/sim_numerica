@@ -184,7 +184,7 @@ void blockingaverage::averages(int i_block ,int n_steps,Metropolis metro, Funzio
     double average=this->measure(n_steps,metro, prob, r);
     m_av+=average;
     m_av2+=pow(average,2);
-    m_err=sqrt( fabs(m_av/double(i_block+1) - pow( m_av/double(i_block+1) ,2) )/double(i_block+1) );
+    m_err=sqrt( fabs(m_av2/double(i_block+1) - pow( m_av/double(i_block+1) ,2) )/double(i_block+1) );
 
     ofstream outfile(m_fileout,ios::app);
 
